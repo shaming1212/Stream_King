@@ -1,0 +1,27 @@
+# AI model cache (auto-downloaded, ~2GB)
+models/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Claude Code
+.claude/
+
+# Extension private key (DO NOT COMMIT)
+extension.pem
+*.pem
+
+# Build artifacts
+*.crx
+*.zip
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+.DS_Store
