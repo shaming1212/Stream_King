@@ -1,33 +1,57 @@
 {
-  "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAye8fOC9xFyR9tG4gD/ImXhG6bSmirQvofHHt+u6AAdAYUU8isRBIVrr462jCzNfhTj8z5DZCK0bOpdALkiq0WxpeWo6AquG95qMudz8V+OgxhmBLj07rYCZH1ImVdgf7nn0rsCU6ZhccHOwkbuuIopWSD4kFoUUDDDIO5Wf3wWxQWENd9O1spp+33SfM/bM1n8AZ28KIE/pQu0f37IkXdR3rQOgGm7VYu39i0aHXzSZ1GLbaU5bvKE+lz/UPmp81bgkIiGwuLxO7ELJFzyQc8mNt6N8HSUBBb4aE5hpX32KF+fjHF9sLewohApwDHZtvzZ1qiA6Uafl5XxDQ114jJQIDAQAB",
   "manifest_version": 3,
-  "name": "ChromeChain",
-  "version": "2.0.0",
-  "description": "AURA 语音助手浏览器注入器",
-  "permissions": ["tabs", "scripting", "alarms", "storage"],
+  "name": "AURA Native Bridge",
+  "version": "1.0.5",
+  "description": "连接本地客户端并向 AI 页面注入文本与图片",
+  "permissions": [
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "alarms"
+  ],
   "host_permissions": [
-    "*://chat.deepseek.com/*",
-    "*://kimi.moonshot.cn/*",
-    "*://www.doubao.com/*",
-    "*://chatgpt.com/*",
-    "*://chat.openai.com/*",
-    "*://tongyi.aliyun.com/*",
-    "ws://127.0.0.1/*",
-    "ws://localhost/*"
+    "https://chatgpt.com/*",
+    "https://chat.openai.com/*",
+    "https://kimi.moonshot.cn/*",
+    "https://chat.deepseek.com/*",
+    "https://www.doubao.com/*",
+    "https://tongyi.aliyun.com/*",
+    "https://gemini.google.com/*",
+    "https://claude.ai/*",
+    "https://www.perplexity.ai/*",
+    "https://perplexity.ai/*",
+    "https://poe.com/*",
+    "https://copilot.microsoft.com/*",
+    "https://grok.com/*"
   ],
   "background": {
     "service_worker": "background.js"
   },
-  "content_scripts": [{
-    "matches": [
-      "*://chat.deepseek.com/*",
-      "*://kimi.moonshot.cn/*",
-      "*://www.doubao.com/*",
-      "*://chatgpt.com/*",
-      "*://chat.openai.com/*",
-      "*://tongyi.aliyun.com/*"
-    ],
-    "js": ["content.js"],
-    "run_at": "document_idle"
-  }]
+  "action": {
+    "default_popup": "popup/popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://chatgpt.com/*",
+        "https://chat.openai.com/*",
+        "https://kimi.moonshot.cn/*",
+        "https://chat.deepseek.com/*",
+        "https://www.doubao.com/*",
+        "https://tongyi.aliyun.com/*",
+        "https://gemini.google.com/*",
+        "https://claude.ai/*",
+        "https://www.perplexity.ai/*",
+        "https://perplexity.ai/*",
+        "https://poe.com/*",
+        "https://copilot.microsoft.com/*",
+        "https://grok.com/*"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
 }

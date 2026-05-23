@@ -1,20 +1,28 @@
 import os
+import time
 import logging
 import keyboard
+import numpy as np
+import cv2
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QLabel, QHBoxLayout, QFrame, QMessageBox
-from PyQt6.QtCore import Qt, QTimer
+from PyQt6.QtCore import Qt, QTimer, pyqtSignal
 from gui.widgets.top_bar import TopBar
 from gui.widgets.bottom_nav import BottomNav
 from gui.widgets.audio_wave import AudioWaveWidget
 from gui.signal_bridge import VoiceEngineBridge, CameraBridge, ModelLoaderThread
 from core.config import HOTKEY_VOICE, HOTKEY_CAMERA, HOTKEY_SCREENSHOT
 from core.screenshot_tool import capture_fullscreen, crop_to_jpeg_base64
+from core.clipboard_util import set_clipboard_image
+from core.history_store import HistoryStore
 from server.ws_server import ws_manager
 
 logger = logging.getLogger("main_window")
 
 
 class MainWindow(QMainWindow):
+    sig_screenshot_result = pyqtSignal(bool, str)  # success, data|error_msg
+    sig_clipboard_image = pyqtSignal(object)  # numpy BGR image for clipboard
+
     def __init__(self):
         super().__init__()
         self.setWindowTitle("AURA Voice Assistant")
@@ -30,9 +38,17 @@ class MainWindow(QMainWindow):
 
         self.bridge = VoiceEngineBridge()
         self.camera_bridge = CameraBridge()
+        self._history = HistoryStore()
+
+        # Wire mobile events through desktop processing pipeline
+        ws_manager.on_mobile_image = self._on_mobile_image
+        ws_manager.on_mobile_audio = self._on_mobile_audio
+        ws_manager.on_file_received = self._on_file_received
+
         self._connect_signals()
 
-        self._history = []
+        self._camera_cd = 0.0
+        self._screenshot_cd = 0.0
 
         self._loading_counter = 0
         self._loading_timer = QTimer()
@@ -117,6 +133,8 @@ class MainWindow(QMainWindow):
 
         self.camera_bridge.sig_success.connect(self._on_capture_success)
         self.camera_bridge.sig_error.connect(self._on_capture_error)
+        self.sig_screenshot_result.connect(self._on_screenshot_result)
+        self.sig_clipboard_image.connect(self._set_clipboard)
 
         self.bottom_nav.btn_mic.clicked.connect(self._on_mic_clicked)
         self.bottom_nav.btn_history.clicked.connect(self._on_history_clicked)
@@ -130,14 +148,15 @@ class MainWindow(QMainWindow):
         self.status_label.setText("LOADING...")
         self._set_dot("#FFB800")
         self.help_label.setText("正在加载 AI 模型...")
-        self.hint_label.setText("首次运行需下载模型，请耐心等待")
+        from core.config import MODEL_CACHE_DIR, MODEL_NAME
+        self.hint_label.setText(f"模型: {MODEL_NAME}；缓存目录: {MODEL_CACHE_DIR}")
         self._loading_counter = 0
         self._loading_timer.start(5000)
 
     def _on_loading_tick(self):
         self._loading_counter += 1
         dots = "." * ((self._loading_counter % 3) + 1)
-        self.hint_label.setText(f"模型首次下载约需 2-10 分钟{dots}")
+        self.hint_label.setText(f"首次运行会下载模型；后续启动使用本地缓存{dots}")
 
     def _on_model_ready(self):
         self._loading_timer.stop()
@@ -147,10 +166,15 @@ class MainWindow(QMainWindow):
         self.help_label.setText("How can I help?")
         self.hint_label.setText(f"按住  {hk}  说话，松开出字")
         self.bridge.engine.start_listening()
-        try:
-            keyboard.add_hotkey(HOTKEY_CAMERA, self._on_camera)
-        except Exception as e:
-            logger.warning("camera hotkey: %s", e)
+        cameras = self.camera_bridge.list_cameras()
+        if cameras:
+            try:
+                keyboard.add_hotkey(HOTKEY_CAMERA, self._on_camera)
+            except Exception as e:
+                logger.warning("camera hotkey: %s", e)
+        else:
+            logger.warning("no camera detected, skipping camera hotkey")
+            self.hint_label.setText(f"按住  {hk}  说话，松开出字 (无摄像头)")
         try:
             keyboard.add_hotkey(HOTKEY_SCREENSHOT, self._on_screenshot)
         except Exception as e:
@@ -187,10 +211,8 @@ class MainWindow(QMainWindow):
         self.help_label.setText(f"✅ {display}")
         hk = HOTKEY_VOICE.replace("+", " + ").upper()
         self.hint_label.setText(f"按住  {hk}  继续说话")
-        import datetime
-        self._history.append({"type": "voice", "text": text,
-                              "time": datetime.datetime.now().strftime("%H:%M:%S")})
-        ws_manager.broadcast_text(text)
+        self._history.add_voice(text)
+        ws_manager.broadcast_text(text, send=True)
 
     def _on_error(self, msg):
         self.status_label.setText("READY")
@@ -201,6 +223,10 @@ class MainWindow(QMainWindow):
 
     # ── camera ──
     def _on_camera(self):
+        now = time.monotonic()
+        if now - self._camera_cd < 1.0:
+            return
+        self._camera_cd = now
         logger.info("CAMERA HOTKEY TRIGGERED")
         self.help_label.setText("Alt+2 triggered!")
         self._set_dot("#FFB800")
@@ -210,19 +236,58 @@ class MainWindow(QMainWindow):
     def _on_capture_success(self, b64):
         self.status_label.setText("READY")
         self._set_dot("#00D4A0")
-        self.help_label.setText("\U0001F4F7 照片已推送")
-        import datetime
-        self._history.append({"type": "camera", "data": b64,
-                              "time": datetime.datetime.now().strftime("%H:%M:%S")})
+        self.help_label.setText("\U0001F4F7 照片已复制到剪贴板")
+        self.hint_label.setText("切到 AI 页面按 Ctrl+V 粘贴")
+        self._history.add_image(b64, "camera")
         ws_manager.broadcast_image(b64)
+        self._b64_to_clipboard(b64)
 
     def _on_capture_error(self, msg):
+        logger.error("camera capture failed: %s", msg)
         self.status_label.setText("READY")
         self._set_dot("#FF4444")
         self.help_label.setText(f"\U0001F4F7 拍照失败: {msg}")
 
+    def _on_mobile_image(self, b64: str):
+        self._history.add_image(b64, "mobile")
+        self.status_label.setText("READY")
+        self._set_dot("#00D4A0")
+        self.help_label.setText("📱 已收到手机图片")
+        self.hint_label.setText("已确认手机上传，正在转发插件并写入剪贴板")
+        self._b64_to_clipboard(b64)
+        logger.info("mobile image received → history + clipboard signal (broadcast handled by server)")
+
+    def _set_clipboard(self, img):
+        if set_clipboard_image(img):
+            logger.info("image copied to clipboard")
+
+    def _b64_to_clipboard(self, b64: str):
+        import base64
+        try:
+            raw = b64.split(",")[-1]
+            jpg_bytes = base64.b64decode(raw)
+            img = cv2.imdecode(np.frombuffer(jpg_bytes, np.uint8), cv2.IMREAD_COLOR)
+            if img is not None:
+                # WebSocket 回调可能不在 Qt 主线程，使用 signal 切回主线程写剪贴板。
+                self.sig_clipboard_image.emit(img)
+        except Exception as e:
+            logger.warning("b64 to clipboard failed: %s", e)
+
+    def _on_mobile_audio(self, b64: str):
+        self.bridge.engine.process_mobile_audio(b64)
+        logger.info("mobile audio → ASR pipeline")
+
+    def _on_file_received(self, filename: str):
+        from server.file_server import file_server
+        file_server.mark_delivered()
+        logger.info("file delivered: %s", filename)
+
     # ── screenshot ──
     def _on_screenshot(self):
+        now = time.monotonic()
+        if now - self._screenshot_cd < 1.0:
+            return
+        self._screenshot_cd = now
         logger.info("SCREENSHOT HOTKEY TRIGGERED")
         self.help_label.setText("Alt+3 triggered!")
         self._set_dot("#FFB800")
@@ -232,19 +297,25 @@ class MainWindow(QMainWindow):
     def _do_screenshot(self):
         try:
             img = capture_fullscreen()
+            self.sig_clipboard_image.emit(img)
             h, w = img.shape[:2]
             b64 = crop_to_jpeg_base64(img, 0, 0, w, h)
-            import datetime
-            self._history.append({"type": "screenshot", "data": b64,
-                                  "time": datetime.datetime.now().strftime("%H:%M:%S")})
+            self._history.add_image(b64, "screenshot")
             ws_manager.broadcast_image(b64)
-            self.status_label.setText("READY")
-            self._set_dot("#00D4A0")
-            self.help_label.setText("\U0001F4F7 全屏截图已推送")
+            self.sig_screenshot_result.emit(True, b64)
         except Exception as e:
             logger.error("screenshot: %s", e)
+            self.sig_screenshot_result.emit(False, str(e))
+
+    def _on_screenshot_result(self, success: bool, data: str):
+        if success:
+            self.status_label.setText("READY")
+            self._set_dot("#00D4A0")
+            self.help_label.setText("\U0001F4F7 截图已复制到剪贴板")
+            self.hint_label.setText("切到 AI 页面按 Ctrl+V 粘贴")
+        else:
             self._set_dot("#FF4444")
-            self.help_label.setText(f"\U0001F4F7 截图失败: {e}")
+            self.help_label.setText(f"\U0001F4F7 截图失败: {data}")
 
     # ── buttons ──
     def _on_mic_clicked(self):
@@ -254,12 +325,14 @@ class MainWindow(QMainWindow):
 
     def _on_history_clicked(self):
         from gui.widgets.history_dialog import HistoryDialog
-        dlg = HistoryDialog(self._history, self)
+        dlg = HistoryDialog(self._history.records, self)
         dlg.cleared.connect(self._history.clear)
         dlg.exec()
 
     def _on_settings_clicked(self):
-        QMessageBox.information(self, "设置", "更多设置选项将在后续版本中提供。\n当前可在 core/config.py 中修改配置。")
+        from gui.widgets.settings_dialog import SettingsDialog
+        dlg = SettingsDialog(self.camera_bridge.camera, self.bridge.engine, self)
+        dlg.exec()
 
     def _on_menu_clicked(self):
         QMessageBox.about(self, "关于 AURA",
@@ -278,6 +351,8 @@ class MainWindow(QMainWindow):
         self._loading_timer.stop()
         self.bridge.engine.stop_listening()
         self.camera_bridge.release()
+        from server.file_server import file_server
+        file_server.cleanup()
         ws_manager.stop()
         import time
         time.sleep(0.2)

@@ -42,6 +42,9 @@ class CameraBridge(QObject):
         except Exception as e:
             self.sig_error.emit(str(e))
 
+    def list_cameras(self):
+        return CameraEngine.list_cameras()
+
     def release(self):
         self.camera.release()
 

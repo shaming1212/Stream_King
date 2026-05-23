@@ -1,5 +1,6 @@
 import base64
 import threading
+import cv2
 
 
 class CameraEngine:
@@ -8,8 +9,24 @@ class CameraEngine:
         self.cap = None
         self._lock = threading.Lock()
 
+    @staticmethod
+    def list_cameras():
+        cameras = []
+        for i in range(10):
+            cap = cv2.VideoCapture(i)
+            if cap.isOpened():
+                cameras.append(i)
+                cap.release()
+        return cameras
+
+    def switch_camera(self, device_index):
+        with self._lock:
+            if self.cap:
+                self.cap.release()
+                self.cap = None
+            self.device_index = device_index
+
     def capture_frame_base64(self) -> str:
-        import cv2
         with self._lock:
             if self.cap is None:
                 self.cap = cv2.VideoCapture(self.device_index)

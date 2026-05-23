@@ -17,6 +17,22 @@ extension.pem
 # Build artifacts
 *.crx
 *.zip
+*.apk
+*.bak
+
+# Release archives
+GptZip/
+
+# Flutter build output
+AppWorking/mobile/aura_mobile/build/
+AppWorking/mobile/aura_mobile/.dart_tool/
+AppWorking/mobile/aura_mobile/.flutter-plugins-dependencies
+
+# Stray files
+softwareInstructAppWorkingmobileaura_mobile*
+
+# Logs
+logs/
 
 # IDE
 .vscode/

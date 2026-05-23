@@ -1,15 +1,10 @@
 // ==UserScript==
 // @name         AURA Voice Injector
 // @namespace    aura.local
-// @version      2.0.0
-// @description  接收 AURA 本地语音助手推送的文字和图片，注入到 AI 对话输入框
+// @version      2.1.0
+// @description  接收 AURA 本地语音助手推送的文字和图片，注入任意网页输入框并自动发送
 // @author       AURA
-// @match        *://chat.deepseek.com/*
-// @match        *://kimi.moonshot.cn/*
-// @match        *://www.doubao.com/*
-// @match        *://chatgpt.com/*
-// @match        *://chat.openai.com/*
-// @match        *://tongyi.aliyun.com/*
+// @match        *://*/*
 // @grant        none
 // @run-at       document-idle
 // ==/UserScript==
@@ -17,47 +12,53 @@
 (function () {
   'use strict';
 
-  const WS_URL = 'ws://127.0.0.1:8765';
+  const WS_URL = 'wss://127.0.0.1:8765';
   let ws = null;
 
-  // ── 站点适配器 ──
-  const SITE_ADAPTERS = {
+  const ADAPTERS = {
     'chat.deepseek.com': {
       selectors: ['#chat-input', 'textarea', '[contenteditable="true"]'],
-      inputMode: 'value'
+      inputMode: 'value',
+      sendBtn: '[data-send="true"], .send-btn, button[type="submit"]'
     },
     'kimi.moonshot.cn': {
       selectors: ['textarea', '.chat-input-editor textarea', '[contenteditable="true"]'],
-      inputMode: 'value'
+      inputMode: 'value',
+      sendBtn: '[data-testid="send-button"], button[type="submit"], .send-btn'
     },
     'www.doubao.com': {
       selectors: ['textarea', '[contenteditable="true"]'],
-      inputMode: 'value'
+      inputMode: 'value',
+      sendBtn: 'button[type="submit"], .send-btn'
     },
     'chatgpt.com': {
       selectors: ['#prompt-textarea', 'textarea', '[contenteditable="true"]'],
-      inputMode: 'value'
+      inputMode: 'value',
+      sendBtn: '[data-testid="send-button"]'
     },
     'chat.openai.com': {
       selectors: ['#prompt-textarea', 'textarea', '[contenteditable="true"]'],
-      inputMode: 'value'
+      inputMode: 'value',
+      sendBtn: '[data-testid="send-button"]'
     },
     'tongyi.aliyun.com': {
       selectors: ['textarea', '[contenteditable="true"]'],
-      inputMode: 'value'
+      inputMode: 'value',
+      sendBtn: 'button[type="submit"], .send-btn'
     }
   };
 
-  const FALLBACK_ADAPTER = {
-    selectors: ['textarea', '[contenteditable="true"]'],
-    inputMode: 'auto'
+  const FALLBACK = {
+    selectors: ['textarea', '[contenteditable="true"]', '[role="textbox"]'],
+    inputMode: 'auto',
+    sendBtn: 'button[type="submit"]'
   };
 
   function getAdapter() {
-    return SITE_ADAPTERS[location.hostname] || FALLBACK_ADAPTER;
+    return ADAPTERS[location.hostname] || FALLBACK;
   }
 
-  function getChatInput() {
+  function getInput() {
     const adapter = getAdapter();
     for (const sel of adapter.selectors) {
       try {
@@ -68,14 +69,19 @@
     return null;
   }
 
-  // ── DOM 操作方法 ──
+  function getSendButton() {
+    const sel = getAdapter().sendBtn;
+    if (!sel) return null;
+    try { return document.querySelector(sel); } catch (_) { return null; }
+  }
+
   function focusInput() {
-    const el = getChatInput();
+    const el = getInput();
     if (el) el.focus();
   }
 
-  function injectText(text) {
-    const el = getChatInput();
+  function injectText(text, shouldSend) {
+    const el = getInput();
     if (!el) return;
 
     const adapter = getAdapter();
@@ -93,10 +99,28 @@
     if (mode === 'value') {
       el.selectionStart = el.selectionEnd = el.value.length;
     }
+
+    if (shouldSend) submitInput(el);
+  }
+
+  function submitInput(el) {
+    el.dispatchEvent(new KeyboardEvent('keydown', {
+      key: 'Enter', code: 'Enter', keyCode: 13, which: 13,
+      bubbles: true, cancelable: true, composed: true
+    }));
+    el.dispatchEvent(new KeyboardEvent('keyup', {
+      key: 'Enter', code: 'Enter', keyCode: 13, which: 13,
+      bubbles: true, cancelable: true, composed: true
+    }));
+
+    const btn = getSendButton();
+    if (btn && !btn.disabled) {
+      setTimeout(() => { try { btn.click(); } catch (_) {} }, 100);
+    }
   }
 
   function injectImage(base64Uri, filename) {
-    const el = getChatInput();
+    const el = getInput();
     if (!el) return;
 
     const parts = base64Uri.split(',');
@@ -116,20 +140,19 @@
     const dt = new DataTransfer();
     dt.items.add(file);
 
-    const pasteEvent = new ClipboardEvent('paste', {
-      clipboardData: dt,
-      bubbles: true,
-      cancelable: true
-    });
-    el.dispatchEvent(pasteEvent);
-    if (dt.files.length > 0) document.dispatchEvent(pasteEvent);
+    el.dispatchEvent(new ClipboardEvent('paste', {
+      clipboardData: dt, bubbles: true, cancelable: true
+    }));
+    if (dt.files.length > 0) {
+      document.dispatchEvent(new ClipboardEvent('paste', {
+        clipboardData: dt, bubbles: true, cancelable: true
+      }));
+    }
   }
 
-  // ── WebSocket 连接（直接在页面上下文中）──
   function connect() {
     if (ws && ws.readyState !== WebSocket.CLOSED) return;
-
-    console.log('[AURA] 连接 ws://127.0.0.1:8765 ...');
+    console.log('[AURA] 连接 wss://127.0.0.1:8765 ...');
     ws = new WebSocket(WS_URL);
 
     ws.onopen = () => console.log('[AURA] 已连接');
@@ -137,9 +160,13 @@
     ws.onmessage = (event) => {
       try {
         const payload = JSON.parse(event.data);
-        if (payload.action === 'focus_input') focusInput();
-        else if (payload.action === 'insert_text') injectText(payload.text || '');
-        else if (payload.action === 'upload_image') injectImage(payload.data, 'snapshot.jpg');
+        if (payload.action === 'focus_input') {
+          focusInput();
+        } else if (payload.action === 'insert_text') {
+          injectText(payload.text || '', !!payload.send);
+        } else if (payload.action === 'upload_image') {
+          injectImage(payload.data, 'snapshot.jpg');
+        }
       } catch (e) {
         console.error('[AURA] 消息解析失败', e);
       }
@@ -151,10 +178,9 @@
       setTimeout(connect, 3000);
     };
 
-    ws.onerror = () => {}; // onclose 会紧随触发
+    ws.onerror = () => {};
   }
 
-  // ── 心跳保活 ──
   setInterval(() => {
     if (ws && ws.readyState === WebSocket.OPEN) {
       ws.send(JSON.stringify({ action: 'ping' }));
@@ -163,7 +189,6 @@
     }
   }, 60000);
 
-  // 启动
   connect();
   console.log('[AURA] Injector 就绪');
 })();
