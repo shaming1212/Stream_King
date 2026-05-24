@@ -22,6 +22,7 @@ extension.pem
 
 # Release archives
 GptZip/
+!release/AURA_Package_20260524_Windows_arm64.zip
 
 # Flutter build output
 AppWorking/mobile/aura_mobile/build/
