@@ -4,6 +4,19 @@ AURA is a local AI voice assistant and browser injection bridge. It turns speech
 
 Repository: [shaming1212/Stream_King](https://github.com/shaming1212/Stream_King)
 
+## Open Source Notice
+
+AURA is an open source project. You are welcome to study, use, improve, and contribute to the project under the terms of the repository license.
+
+Before using, redistributing, packaging, or contributing code, please follow:
+
+- The license file that will be published with this repository.
+- The licenses of third-party dependencies, including PyQt6, FunASR, ModelScope, OpenCV, Torch, and browser-extension platform APIs.
+- The licenses and usage terms of bundled or downloaded speech models.
+- The rules of the AI websites that AURA integrates with through browser adapters.
+
+Note: this repository should include a formal `LICENSE` file before a stable public release. Until that file is added, treat the project as source-available for review and collaboration, and do not redistribute packaged binaries, model files, or release bundles without the maintainer's permission.
+
 ## What It Does
 
 - Runs a PyQt6 desktop assistant on Windows.
