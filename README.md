@@ -4,6 +4,8 @@ AURA is a local AI voice assistant and browser injection bridge. It turns speech
 
 Repository: [shaming1212/Stream_King](https://github.com/shaming1212/Stream_King)
 
+![AURA desktop assistant screenshot](docs/assets/aura-desktop-screenshot.png)
+
 ## Open Source Notice
 
 AURA is an open-source project released under the MIT License. You are welcome to study, use, improve, and contribute to the project under the terms of the repository license.
