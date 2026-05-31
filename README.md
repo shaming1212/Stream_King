@@ -6,16 +6,16 @@ Repository: [shaming1212/Stream_King](https://github.com/shaming1212/Stream_King
 
 ## Open Source Notice
 
-AURA is an open source project. You are welcome to study, use, improve, and contribute to the project under the terms of the repository license.
+AURA is an open-source project released under the MIT License. You are welcome to study, use, improve, and contribute to the project under the terms of the repository license.
 
 Before using, redistributing, packaging, or contributing code, please follow:
 
-- The license file that will be published with this repository.
+- The [MIT License](LICENSE) for this repository's source code.
 - The licenses of third-party dependencies, including PyQt6, FunASR, ModelScope, OpenCV, Torch, and browser-extension platform APIs.
 - The licenses and usage terms of bundled or downloaded speech models.
 - The rules of the AI websites that AURA integrates with through browser adapters.
 
-Note: this repository should include a formal `LICENSE` file before a stable public release. Until that file is added, treat the project as source-available for review and collaboration, and do not redistribute packaged binaries, model files, or release bundles without the maintainer's permission.
+See [Third-Party Notices](THIRD_PARTY_NOTICES.md) for dependency, model, browser, and packaged-release considerations. Packaged binaries and model files may include additional third-party terms beyond the repository source-code license.
 
 ## What It Does
 
