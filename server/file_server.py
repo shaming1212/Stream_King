@@ -6,13 +6,12 @@ import threading
 from http.server import HTTPServer, BaseHTTPRequestHandler
 from urllib.parse import unquote, quote
 
+from core.config import FILE_HOST, FILE_PORT
+
 logger = logging.getLogger("file_server")
 
 TEMP_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "temp_files")
 os.makedirs(TEMP_DIR, exist_ok=True)
-
-_FILE_SERVER_PORT = 8766
-
 
 class _FileHandler(BaseHTTPRequestHandler):
     """Serves a single file at GET /api/download/<filename>"""
@@ -74,10 +73,10 @@ class FileServer:
 
         self._stop_event.clear()
         self.delivered.clear()
-        self._server = HTTPServer(("0.0.0.0", _FILE_SERVER_PORT), _FileHandler)
+        self._server = HTTPServer((FILE_HOST, FILE_PORT), _FileHandler)
         self._thread = threading.Thread(target=self._run, daemon=True)
         self._thread.start()
-        logger.info("file server started on :%d for %s", _FILE_SERVER_PORT, filename)
+        logger.info("file server started on %s:%d for %s", FILE_HOST, FILE_PORT, filename)
         return filename
 
     def mark_delivered(self):

@@ -11,8 +11,8 @@ import threading
 import websockets
 from zeroconf.asyncio import AsyncServiceInfo, AsyncZeroconf
 
-WS_HOST = "0.0.0.0"
-WS_PORT = 8765
+from core.config import APP_VERSION, WS_HOST, WS_PORT
+
 _CERT_PATH = os.path.join(os.path.dirname(__file__), "cert.pem")
 _KEY_PATH = os.path.join(os.path.dirname(__file__), "key.pem")
 
@@ -202,7 +202,7 @@ class WebSocketServer:
             "AURA Voice Assistant._aura._tcp.local.",
             addresses=[socket.inet_aton(local_ip)],
             port=WS_PORT,
-            properties={"path": "/", "version": "1.0"},
+            properties={"path": "/", "version": APP_VERSION},
         )
         await zc.async_register_service(info)
         logger.info("mDNS running at %s:%d", local_ip, WS_PORT)
