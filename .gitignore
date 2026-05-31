@@ -42,3 +42,7 @@ logs/
 # OS
 Thumbs.db
 .DS_Store
+
+# Keep the packaged release committed in full.
+!release/AURA_Package_20260524/
+!release/AURA_Package_20260524/**

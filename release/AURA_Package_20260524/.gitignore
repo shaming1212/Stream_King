@@ -1,3 +1,2 @@
-*
-!.gitignore
-!README.md
+# This release directory is intentionally committed in full.
+# Large binaries are stored through Git LFS via the repository .gitattributes.

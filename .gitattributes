@@ -1,1 +1,10 @@
 release/AURA_Package_20260524_Windows_arm64.zip filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.exe filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.dll filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.pyd filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.pt filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.apk filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.zip filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.png filter=lfs diff=lfs merge=lfs -text
+release/AURA_Package_20260524/**/*.wav filter=lfs diff=lfs merge=lfs -text

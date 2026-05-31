@@ -1,0 +1,260 @@
+08:44:50 [websockets.server] INFO: server listening on 0.0.0.0:8765
+08:44:50 [aura.ws] INFO: ws server started on ws://0.0.0.0:8765
+08:44:51 [websockets.server] INFO: connection open
+08:44:51 [aura.ws] INFO: client connected (1)
+08:44:51 [aura.ws] INFO: client source set: unknown -> extension
+08:44:52 [aura.ws] INFO: mDNS running at 192.168.55.10:8765
+08:45:03 [voice_engine] INFO: loading ASR profile=small model=iic/SenseVoiceSmall
+08:45:40 [root] INFO: download models from model hub: ms
+08:45:40 [root] WARNING: trust_remote_code: False
+08:45:41 [root] INFO: Loading pretrained params from D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+08:45:41 [root] INFO: ckpt: D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+08:45:41 [root] INFO: scope_map: ['module.', 'None']
+08:45:41 [root] INFO: excludes: None
+08:45:42 [root] INFO: Loading ckpt: D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt, status: <All keys matched successfully>
+08:45:42 [root] INFO: Building VAD model.
+08:45:42 [root] INFO: download models from model hub: ms
+08:45:42 [root] WARNING: trust_remote_code: False
+08:45:42 [root] INFO: Loading pretrained params from D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+08:45:42 [root] INFO: ckpt: D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+08:45:42 [root] INFO: scope_map: ['module.', 'None']
+08:45:42 [root] INFO: excludes: None
+08:45:42 [root] INFO: Loading ckpt: D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt, status: <All keys matched successfully>
+08:45:42 [voice_engine] INFO: model ready: profile=small, punc=off
+08:48:11 [websockets.server] INFO: server closing
+08:48:11 [aura.ws] INFO: client disconnected (0)
+08:48:11 [websockets.server] INFO: connection closed
+08:48:11 [websockets.server] INFO: server closed
+08:48:11 [aura.ws] INFO: server closed
+08:48:14 [websockets.server] INFO: server listening on 0.0.0.0:8765
+08:48:14 [aura.ws] INFO: ws server started on ws://0.0.0.0:8765
+08:48:15 [websockets.server] INFO: connection open
+08:48:15 [aura.ws] INFO: client connected (1)
+08:48:15 [aura.ws] INFO: client source set: unknown -> extension
+08:48:16 [aura.ws] INFO: mDNS running at 192.168.55.10:8765
+08:48:19 [voice_engine] INFO: loading ASR profile=small model=iic/SenseVoiceSmall
+08:48:22 [root] INFO: download models from model hub: ms
+08:48:22 [root] WARNING: trust_remote_code: False
+08:48:23 [root] INFO: Loading pretrained params from D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+08:48:23 [root] INFO: ckpt: D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+08:48:23 [root] INFO: scope_map: ['module.', 'None']
+08:48:23 [root] INFO: excludes: None
+08:48:23 [root] INFO: Loading ckpt: D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt, status: <All keys matched successfully>
+08:48:23 [root] INFO: Building VAD model.
+08:48:23 [root] INFO: download models from model hub: ms
+08:48:23 [root] WARNING: trust_remote_code: False
+08:48:23 [root] INFO: Loading pretrained params from D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+08:48:23 [root] INFO: ckpt: D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+08:48:23 [root] INFO: scope_map: ['module.', 'None']
+08:48:23 [root] INFO: excludes: None
+08:48:23 [root] INFO: Loading ckpt: D:\softwareInstruct\release\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt, status: <All keys matched successfully>
+08:48:23 [voice_engine] INFO: model ready: profile=small, punc=off
+08:48:27 [websockets.server] INFO: server closing
+08:48:27 [aura.ws] INFO: client disconnected (0)
+08:48:27 [websockets.server] INFO: connection closed
+08:48:27 [websockets.server] INFO: server closed
+08:48:27 [aura.ws] INFO: server closed
+08:57:31 [websockets.server] INFO: server listening on 0.0.0.0:8765
+08:57:31 [aura.ws] INFO: ws server started on ws://0.0.0.0:8765
+08:57:33 [aura.ws] INFO: mDNS running at 192.168.31.208:8765
+08:57:41 [voice_engine] INFO: loading ASR profile=small model=iic/SenseVoiceSmall
+08:57:44 [root] INFO: download models from model hub: ms
+08:57:44 [root] WARNING: trust_remote_code: False
+08:57:47 [root] INFO: Loading pretrained params from D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+08:57:47 [root] INFO: ckpt: D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+08:57:53 [root] INFO: scope_map: ['module.', 'None']
+08:57:53 [root] INFO: excludes: None
+08:57:54 [root] INFO: Loading ckpt: D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt, status: <All keys matched successfully>
+08:57:54 [root] INFO: Building VAD model.
+08:57:54 [root] INFO: download models from model hub: ms
+08:57:54 [root] WARNING: trust_remote_code: False
+08:57:54 [root] INFO: Loading pretrained params from D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+08:57:54 [root] INFO: ckpt: D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+08:57:54 [root] INFO: scope_map: ['module.', 'None']
+08:57:54 [root] INFO: excludes: None
+08:57:54 [root] INFO: Loading ckpt: D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt, status: <All keys matched successfully>
+08:57:54 [voice_engine] INFO: model ready: profile=small, punc=off
+08:58:25 [websockets.server] INFO: connection open
+08:58:25 [aura.ws] INFO: client connected (1)
+08:58:25 [aura.ws] INFO: client source set: unknown -> extension
+08:59:26 [aura.ws] INFO: broadcast text to 1 clients: 好久不见
+08:59:30 [main_window] INFO: CAMERA HOTKEY TRIGGERED
+08:59:33 [aura.ws] INFO: broadcast image id=None to 1 non-mobile clients
+08:59:33 [clipboard] INFO: image set on clipboard (640x480, 1228840 bytes)
+08:59:33 [main_window] INFO: image copied to clipboard
+08:59:36 [main_window] INFO: SCREENSHOT HOTKEY TRIGGERED
+08:59:36 [clipboard] INFO: image set on clipboard (1920x1080, 8294440 bytes)
+08:59:36 [main_window] INFO: image copied to clipboard
+08:59:36 [aura.ws] INFO: broadcast image id=None to 1 non-mobile clients
+08:59:46 [aura.ws] INFO: broadcast text to 1 clients: 能看到屏幕上有什么吗
+08:59:55 [aura.ws] INFO: broadcast text to 1 clients: 能看到屏幕上有什么吗
+09:00:31 [websockets.server] INFO: connection open
+09:00:31 [aura.ws] INFO: client connected (2)
+09:00:31 [aura.ws] INFO: client source set: unknown -> mobile
+09:00:35 [aura.ws] INFO: upload_image_ack sent id=camera_1779584435886 ok=True
+09:00:35 [aura.ws] INFO: broadcast image id=camera_1779584435886 to 1 non-mobile clients
+09:00:35 [aura.ws] INFO: mobile image received id=camera_1779584435886 (326511 chars); forwarded once
+09:00:45 [aura.ws] INFO: upload_image_ack sent id=1000004214 ok=True
+09:00:45 [aura.ws] INFO: broadcast image id=1000004214 to 1 non-mobile clients
+09:00:45 [aura.ws] INFO: mobile image received id=1000004214 (2599323 chars); forwarded once
+09:00:52 [aura.ws] INFO: broadcast text to 1 clients: 看看屏幕中有什么东西
+09:01:07 [aura.ws] INFO: client disconnected (1)
+09:01:07 [websockets.server] INFO: connection closed
+09:01:16 [websockets.server] INFO: connection open
+09:01:16 [aura.ws] INFO: client connected (2)
+09:01:16 [aura.ws] INFO: client source set: unknown -> mobile
+09:01:21 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584481253 ok=True
+09:01:21 [aura.ws] INFO: mobile audio received (163922 chars)
+09:01:21 [main_window] INFO: mobile audio → ASR pipeline
+09:01:22 [aura.ws] INFO: broadcast text to 1 clients: 你现在使用的这个模型是什
+09:01:34 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584494401 ok=True
+09:01:34 [aura.ws] INFO: mobile audio received (273150 chars)
+09:01:34 [main_window] INFO: mobile audio → ASR pipeline
+09:01:35 [aura.ws] INFO: broadcast text to 1 clients: 我说的是模型型号你不应该使用的是 d c v 四 pro 的模型吗
+09:01:48 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584508570 ok=True
+09:01:48 [aura.ws] INFO: mobile audio received (122962 chars)
+09:01:48 [main_window] INFO: mobile audio → ASR pipeline
+09:01:49 [aura.ws] INFO: broadcast text to 1 clients: 你现在使用的模型是什么模型
+09:02:14 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584534168 ok=True
+09:02:14 [aura.ws] INFO: mobile audio received (160510 chars)
+09:02:14 [main_window] INFO: mobile audio → ASR pipeline
+09:02:14 [aura.ws] INFO: broadcast text to 1 clients: 好久不见
+09:02:20 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584540364 ok=True
+09:02:20 [aura.ws] INFO: mobile audio received (61522 chars)
+09:02:20 [main_window] INFO: mobile audio → ASR pipeline
+09:02:20 [aura.ws] INFO: broadcast text to 1 clients: 能听到我说话吗
+09:02:29 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584549747 ok=True
+09:02:29 [aura.ws] INFO: mobile audio received (51282 chars)
+09:02:29 [main_window] INFO: mobile audio → ASR pipeline
+09:02:30 [aura.ws] INFO: broadcast text to 1 clients: 好久不见了😔
+09:02:34 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584554395 ok=True
+09:02:34 [aura.ws] INFO: mobile audio received (44454 chars)
+09:02:34 [main_window] INFO: mobile audio → ASR pipeline
+09:02:34 [aura.ws] INFO: broadcast text to 1 clients: 好久不见
+09:02:47 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584567021 ok=True
+09:02:47 [aura.ws] INFO: mobile audio received (68350 chars)
+09:02:47 [main_window] INFO: mobile audio → ASR pipeline
+09:02:47 [aura.ws] INFO: broadcast text to 1 clients: 好久不见 flash
+09:03:37 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584617750 ok=True
+09:03:37 [aura.ws] INFO: mobile audio received (286802 chars)
+09:03:37 [main_window] INFO: mobile audio → ASR pipeline
+09:03:38 [aura.ws] INFO: broadcast text to 1 clients: 你现在随便输出一段文字我想看看你最大的输出文本长度是多少
+09:04:16 [aura.ws] INFO: upload_audio_ack sent id=audio_1779584656174 ok=True
+09:04:16 [aura.ws] INFO: mobile audio received (218534 chars)
+09:04:16 [main_window] INFO: mobile audio → ASR pipeline
+09:04:17 [aura.ws] INFO: broadcast text to 1 clients: 🎼你能直接给我输出一万字的文本吗
+09:56:34 [aura.ws] INFO: broadcast text to 1 clients: 现在还能听到吗
+09:57:07 [websockets.server] INFO: connection open
+09:57:07 [aura.ws] INFO: client connected (3)
+09:57:07 [aura.ws] INFO: client source set: unknown -> mobile
+09:57:27 [aura.ws] INFO: upload_image_ack sent id=1000041508 ok=True
+09:57:27 [aura.ws] INFO: broadcast image id=1000041508 to 1 non-mobile clients
+09:57:27 [aura.ws] INFO: mobile image received id=1000041508 (283703 chars); forwarded once
+09:57:28 [aura.ws] INFO: upload_image_ack sent id=1000041507 ok=True
+09:57:28 [aura.ws] INFO: broadcast image id=1000041507 to 1 non-mobile clients
+09:57:28 [aura.ws] INFO: mobile image received id=1000041507 (284067 chars); forwarded once
+10:15:08 [aura.ws] INFO: client disconnected (2)
+10:15:08 [websockets.server] INFO: connection closed
+11:41:25 [aura.ws] INFO: client disconnected (1)
+11:41:25 [websockets.server] INFO: connection closed
+11:41:27 [aura.ws] INFO: client disconnected (0)
+11:41:27 [websockets.server] INFO: connection closed
+11:41:49 [websockets.server] INFO: server closing
+11:41:49 [websockets.server] INFO: server closed
+11:41:49 [aura.ws] INFO: server closed
+17:46:31 [websockets.server] INFO: server listening on 0.0.0.0:8765
+17:46:31 [aura.ws] INFO: ws server started on ws://0.0.0.0:8765
+17:46:33 [aura.ws] INFO: mDNS running at 192.168.31.208:8765
+17:46:38 [websockets.server] INFO: connection open
+17:46:38 [aura.ws] INFO: client connected (1)
+17:46:38 [aura.ws] INFO: client source set: unknown -> extension
+17:46:39 [voice_engine] INFO: loading ASR profile=small model=iic/SenseVoiceSmall
+17:46:42 [root] INFO: download models from model hub: ms
+17:46:42 [root] WARNING: trust_remote_code: False
+17:46:44 [root] INFO: Loading pretrained params from D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+17:46:44 [root] INFO: ckpt: D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+17:46:48 [root] INFO: scope_map: ['module.', 'None']
+17:46:48 [root] INFO: excludes: None
+17:46:50 [root] INFO: Loading ckpt: D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt, status: <All keys matched successfully>
+17:46:50 [root] INFO: Building VAD model.
+17:46:50 [root] INFO: download models from model hub: ms
+17:46:50 [root] WARNING: trust_remote_code: False
+17:46:50 [root] INFO: Loading pretrained params from D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+17:46:50 [root] INFO: ckpt: D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+17:46:50 [root] INFO: scope_map: ['module.', 'None']
+17:46:50 [root] INFO: excludes: None
+17:46:50 [root] INFO: Loading ckpt: D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt, status: <All keys matched successfully>
+17:46:51 [voice_engine] INFO: model ready: profile=small, punc=off
+17:47:54 [aura.ws] INFO: broadcast text to 1 clients: 好久不见
+17:48:05 [aura.ws] INFO: broadcast text to 1 clients: 现在我什么时候到期
+17:48:51 [aura.ws] INFO: broadcast text to 1 clients: 现在的时间是几点
+17:49:14 [main_window] INFO: SCREENSHOT HOTKEY TRIGGERED
+17:49:14 [clipboard] INFO: image set on clipboard (1920x1080, 8294440 bytes)
+17:49:14 [main_window] INFO: image copied to clipboard
+17:49:14 [aura.ws] INFO: broadcast image id=None to 1 non-mobile clients
+17:49:17 [main_window] INFO: CAMERA HOTKEY TRIGGERED
+17:49:20 [aura.ws] INFO: broadcast image id=None to 1 non-mobile clients
+17:49:20 [clipboard] INFO: image set on clipboard (640x480, 1228840 bytes)
+17:49:20 [main_window] INFO: image copied to clipboard
+17:49:50 [websockets.server] INFO: connection open
+17:49:50 [aura.ws] INFO: client connected (2)
+17:49:50 [aura.ws] INFO: client source set: unknown -> mobile
+17:49:56 [aura.ws] INFO: upload_audio_ack sent id=audio_1779616196299 ok=True
+17:49:56 [aura.ws] INFO: mobile audio received (47870 chars)
+17:49:56 [main_window] INFO: mobile audio → ASR pipeline
+17:49:56 [aura.ws] INFO: broadcast text to 1 clients: 现在几点
+17:50:17 [aura.ws] INFO: upload_image_ack sent id=1000041512 ok=True
+17:50:17 [aura.ws] INFO: broadcast image id=1000041512 to 1 non-mobile clients
+17:50:17 [aura.ws] INFO: mobile image received id=1000041512 (5382463 chars); forwarded once
+17:50:45 [file_server] INFO: file server started on :8766 for AURA.exe
+17:50:45 [aura.ws] INFO: file_to_mobile sent to 1 clients: AURA.exe
+17:50:45 [file_server] INFO: "GET /api/download/AURA.exe HTTP/1.1" 200 -
+17:50:52 [file_server] INFO: file served: AURA.exe (60485421 bytes)
+17:50:53 [aura.ws] INFO: file received: AURA.exe
+17:50:53 [main_window] INFO: file delivered: AURA.exe
+17:50:53 [file_server] INFO: file server stopped
+17:54:10 [aura.ws] INFO: broadcast text to 1 clients: 我说很长一段时间或者说很长一段内容他都可以帮我识别出来
+17:54:24 [aura.ws] INFO: broadcast text to 1 clients: 在是不是要比我的快捷键相对来说更长一些
+21:41:27 [websockets.server] INFO: server closing
+21:41:27 [aura.ws] INFO: client disconnected (1)
+21:41:27 [websockets.server] INFO: connection closed
+21:41:28 [aura.ws] INFO: client disconnected (0)
+21:41:28 [websockets.server] INFO: connection closed
+21:41:28 [websockets.server] INFO: server closed
+21:41:28 [aura.ws] INFO: server closed
+11:51:45 [websockets.server] INFO: server listening on 0.0.0.0:8765
+11:51:45 [aura.ws] INFO: ws server started on ws://0.0.0.0:8765
+11:51:47 [aura.ws] INFO: mDNS running at 172.25.96.1:8765
+11:51:52 [websockets.server] INFO: connection open
+11:51:52 [aura.ws] INFO: client connected (1)
+11:51:52 [aura.ws] INFO: client source set: unknown -> extension
+11:52:04 [websockets.server] INFO: connection open
+11:52:04 [aura.ws] INFO: client connected (2)
+11:52:04 [aura.ws] INFO: client source set: unknown -> extension
+11:52:04 [voice_engine] INFO: loading ASR profile=small model=iic/SenseVoiceSmall
+11:52:07 [root] INFO: download models from model hub: ms
+11:52:07 [root] WARNING: trust_remote_code: False
+11:52:10 [root] INFO: Loading pretrained params from D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+11:52:10 [root] INFO: ckpt: D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt
+11:52:21 [root] INFO: scope_map: ['module.', 'None']
+11:52:21 [root] INFO: excludes: None
+11:52:23 [root] INFO: Loading ckpt: D:\AURA_Package_20260524\models\models\iic\SenseVoiceSmall\model.pt, status: <All keys matched successfully>
+11:52:23 [root] INFO: Building VAD model.
+11:52:23 [root] INFO: download models from model hub: ms
+11:52:24 [root] WARNING: trust_remote_code: False
+11:52:24 [root] INFO: Loading pretrained params from D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+11:52:24 [root] INFO: ckpt: D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt
+11:52:24 [root] INFO: scope_map: ['module.', 'None']
+11:52:24 [root] INFO: excludes: None
+11:52:24 [root] INFO: Loading ckpt: D:\AURA_Package_20260524\models\models\iic\speech_fsmn_vad_zh-cn-16k-common-pytorch\model.pt, status: <All keys matched successfully>
+11:52:24 [voice_engine] INFO: model ready: profile=small, punc=off
+11:54:35 [aura.ws] INFO: broadcast text to 2 clients: 就是现在 check g p t 不是出了一个关于呃开源项目然后能赢六个月的 pro会员这个具体情况是什么样的
+11:56:02 [aura.ws] INFO: broadcast text to 2 clients: 这个项目的申请地址在哪里
+11:57:20 [aura.ws] INFO: broadcast text to 2 clients: 也就是说如果申啊就是现在符合申请的一般呃都是什么样的人
+11:59:29 [aura.ws] INFO: broadcast text to 2 clients: 我明白就是类似于这种对比脚本啊或者说这种工程报告的自动生生成工具像这种你比方说我的这个嗯不太符合但是我没有用啊就是我的这个项目他虽然说没有用户和下载量但是我是有它一定存在一定的生态价值那这边会不会就说他这个ゴ申请吧或者说现在申请成功率高吗
+12:00:24 [aura.ws] INFO: broadcast text to 2 clients: ok o 啊g p r 是
+12:00:35 [aura.ws] INFO: broadcast text to 2 clients: p r 是什么
+12:01:47 [aura.ws] INFO: client disconnected (1)
+12:01:47 [websockets.server] INFO: connection closed
+12:01:56 [aura.ws] INFO: client disconnected (0)
+12:01:56 [websockets.server] INFO: connection closed
