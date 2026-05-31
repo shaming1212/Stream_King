@@ -36,7 +36,22 @@ HOTKEY_VOICE = "alt+1"
 HOTKEY_CAMERA = "alt+2"
 HOTKEY_SCREENSHOT = "alt+3"
 
-WS_HOST = "0.0.0.0"
-WS_PORT = 8765
+APP_VERSION = os.getenv("AURA_VERSION", "1.0")
+
+
+def _env_int(name: str, default: int) -> int:
+    raw = os.getenv(name)
+    if raw is None:
+        return default
+    try:
+        return int(raw)
+    except ValueError:
+        return default
+
+
+WS_HOST = os.getenv("AURA_WS_HOST", "0.0.0.0")
+WS_PORT = _env_int("AURA_WS_PORT", 8765)
+FILE_HOST = os.getenv("AURA_FILE_HOST", "0.0.0.0")
+FILE_PORT = _env_int("AURA_FILE_PORT", 8766)
 
 os.environ["MODELSCOPE_CACHE"] = MODEL_CACHE_DIR
